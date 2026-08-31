@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Date;
 
 @Entity
 @Table(name = "bakery")
@@ -36,10 +35,10 @@ public class BakeryEntity {
     private Boolean favorite;
 
     @Column(name = "photo_url")
-    private String photo_url;
+    private String photoUrl;
 
     @Column(name = "maps_url")
-    private String maps_url;
+    private String mapsUrl;
 
     public BakeryEntity() {
         // JPA用のデフォルトコンストラクタ
@@ -110,19 +109,19 @@ public class BakeryEntity {
         this.favorite = favorite;
     }
 
-    public String getPhoto_url() {
-        return photo_url;
+    public String getPhotoUrl() {
+        return photoUrl;
     }
 
-    public void setPhoto_url(String photo_url) {
-        this.photo_url = photo_url;
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
     }
 
-    public String getMaps_url() {
-        return maps_url;
+    public String getMapsUrl() {
+        return mapsUrl;
     }
 
-    public void setMaps_url(String maps_url) {
-        this.maps_url = maps_url;
+    public void setMapsUrl(String maps_url) {
+        this.mapsUrl = maps_url;
     }
 }

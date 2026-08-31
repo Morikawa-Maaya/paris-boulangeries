@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Enregistrement d'une boulangerie</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+
+</head>
+<body>
+
+<h1>Enregistrement d'une boulangerie</h1>
+
+<form th:object="${bakeryDto}"
+      th:action="@{/bakery/confirm}"
+      method="post"
+      enctype="multipart/form-data">
+
+    <div>
+        <label for="bakeryName">Nom</label>
+        <input type="text" id="bakeryName" th:field="*{bakeryName}" required>
+        <span th:if="${#fields.hasErrors('bakeryName')}"
+              th:errors="*{bakeryName}">
+    </span>
+    </div>
+    <div>
+        <label for="arrondissement">Arrondissement</label>
+        <select id="arrondissement" th:field="*{arrondissement}" required>
+            <option value="">-- Sélectionnez --</option>
+            <option th:each="i : ${#numbers.sequence(1, 20)}"
+                    th:value="${i}"
+                    th:text="${i == 1 ? '1er' : i + 'e'}">
+            </option>
+        </select>
+
+        <span th:if="${#fields.hasErrors('arrondissement')}"
+              th:errors="*{arrondissement}">
+    </span>
+    </div>
+
+    <div>
+        <label for="address">Adresse</label>
+        <input type="text"
+               id="address"
+               th:field="*{address}">
+    </div>
+
+    <div>
+        <label for="rating">Évaluation</label>
+        <select id="rating" th:field="*{rating}" required>
+            <option value="">-- Sélectionnez --</option>
+            <option value="1.0">1.0</option>
+            <option value="1.5">1.5</option>
+            <option value="2.0">2.0</option>
+            <option value="2.5">2.5</option>
+            <option value="3.0">3.0</option>
+            <option value="3.5">3.5</option>
+            <option value="4.0">4.0</option>
+            <option value="4.5">4.5</option>
+            <option value="5.0">5.0</option>
+        </select>
+        <span th:if="${#fields.hasErrors('rating')}"
+              th:errors="*{rating}">
+    </span>
+
+    </div>
+
+
+    <div>
+        <label for="notes">Notes</label>
+        <input type="text"
+               id="notes"
+               th:field="*{notes}">
+    </div>
+
+    <div>
+        <label for="favorite">Ajouter aux favoris</label>
+        <input type="checkbox"
+               id="favorite"
+               th:field="*{favorite}">
+    </div>
+
+    <div>
+        <label for="visitedDate">Date de visite</label>
+        <input type="date"
+               id="visitedDate"
+               th:field="*{visitedDate}" required>
+    </div>
+
+    <div>
+        <label for="photo">Photo</label>
+
+        <input type="file"
+               id="photo"
+               th:field="*{photo}"
+               hidden>
+
+        <label for="photo" class="file-button">
+            Choisir une photo
+            <img src="/images/clarity_upload-line.svg" alt="Upload">
+        </label>
+
+        <span id="file-name">Aucune photo sélectionnée</span>
+    </div>
+
+
+    <div>
+        <label for="mapsUrl">Lien Google Maps</label>
+        <input type="url"
+               id="mapsUrl"
+               th:field="*{mapsUrl}">
+    </div>
+
+    <div class="submit-area">
+        <button type="submit" class="submit-button">
+            Vérifier
+        </button>
+    </div>
+
+</form>
+<script th:src="@{/js/script.js}"></script>
+</body>
+</html>

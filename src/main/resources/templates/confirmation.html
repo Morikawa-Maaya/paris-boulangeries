@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Confirmation</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+
+</head>
+<body>
+
+<h1>Confirmation</h1>
+
+<p>Veuillez vérifier les informations avant l'enregistrement.</p>
+
+<div>
+    <label>Nom</label>
+    <input type="text"
+           class="confirmation-value"
+           th:value="${bakeryDto.bakeryName}"
+           disabled>
+</div>
+
+<div>
+    <label>Arrondissement</label>
+    <input type="text"
+           class="confirmation-value"
+           th:value="${bakeryDto.arrondissement}"
+           disabled>
+</div>
+
+<div>
+    <label>Adresse</label>
+    <input type="text"
+           class="confirmation-value"
+           th:value="${bakeryDto.address}"
+           disabled>
+</div>
+
+<div>
+    <label>Évaluation</label>
+    <input type="text"
+           class="confirmation-value"
+           th:value="${bakeryDto.rating}"
+           disabled>
+</div>
+
+<div>
+    <label>Notes</label>
+    <input type="text"
+           class="confirmation-value"
+           th:value="${bakeryDto.notes}"
+           disabled>
+</div>
+<div>
+    <label>Favori</label>
+    <input type="text"
+           class="confirmation-value"
+           th:value="${bakeryDto.favorite ? 'Oui' : 'Non'}"
+           disabled>
+</div>
+
+<div>
+    <label>Date de visite</label>
+    <input type="text"
+           class="confirmation-value"
+           th:value="${bakeryDto.visitedDate}"
+           disabled>
+</div>
+
+<div>
+    <label>Google Maps</label>
+    <input type="text"
+           class="confirmation-value"
+           th:value="${bakeryDto.mapsUrl}"
+           disabled>
+</div>
+
+<div class="submit-area">
+
+    <!-- register -->
+    <form th:action="@{/api/bakery}"
+          method="post">
+
+        <input type="hidden"
+               name="bakeryName"
+               th:value="${bakeryDto.bakeryName}">
+
+        <input type="hidden"
+               name="arrondissement"
+               th:value="${bakeryDto.arrondissement}">
+
+        <input type="hidden"
+               name="address"
+               th:value="${bakeryDto.address}">
+
+        <input type="hidden"
+               name="rating"
+               th:value="${bakeryDto.rating}">
+
+        <input type="hidden"
+               name="notes"
+               th:value="${bakeryDto.notes}">
+
+        <input type="hidden"
+               name="favorite"
+               th:value="${bakeryDto.favorite}">
+
+        <input type="hidden"
+               name="visitedDate"
+               th:value="${bakeryDto.visitedDate}">
+
+        <input type="hidden"
+               name="mapsUrl"
+               th:value="${bakeryDto.mapsUrl}">
+
+        <button type="submit" class="register-button">
+            Enregistrer
+        </button>
+
+    </form>
+
+    <!-- return to input page -->
+    <form th:action="@{/registration}" method="get">
+        <button type="submit" class="submit-button modify-button">
+            Modifier
+        </button>
+    </form>
+
+</div>
+</body>
+</html>

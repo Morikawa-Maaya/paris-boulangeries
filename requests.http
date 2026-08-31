@@ -1,20 +1,13 @@
-### GET request to example server
-GET https://examples.http-client.intellij.net/get
-    ?generated-in=IntelliJ IDEA
-
-###
-
+### Create bakery
 POST http://localhost:8080/api/bakery
-Content-Type: application/json
+Content-Type: multipart/form-data
 
-{
-  "bakeryName": "Test Bakery",
-  "arrondissement": 1,
-  "address": "1-1-1",
-  "rating": 4.5,
-  "notes": "test",
-  "visitedDate": "2026-08-24",
-  "favorite": true,
-  "photoUrl": "test.jpg",
-  "mapsUrl": "https://maps.google.com"
-}
+bakeryName=Test Bakery
+arrondissement=1
+address=1-1-1
+rating=4.5
+notes=test
+visitedDate=2026-08-24
+favorite=true
+photo=@./test.jpg
+mapsUrl=https://maps.google.com
