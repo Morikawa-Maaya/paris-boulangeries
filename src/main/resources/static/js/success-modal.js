@@ -1,4 +1,4 @@
-// show modal window after deleting one bakery data
+// Show success modal after registering, editing, or deleting a bakery
 
 const successModal =
     document.getElementById('successModal');
@@ -10,27 +10,31 @@ const successModalMessage =
     document.getElementById('successModalMessage');
 
 
-// Check delete success message
-const deleteSuccessMessage =
-    sessionStorage.getItem('deleteSuccessMessage');
+// Check success message
+const successMessage =
+    sessionStorage.getItem('successMessage');
 
-if (deleteSuccessMessage) {
+
+// Show modal if success message exists
+if (successMessage) {
 
     // Display message
     successModalMessage.textContent =
-        deleteSuccessMessage;
+        successMessage;
 
     // Show modal
     successModal.classList.add('show');
 
     // Remove message so it doesn't appear again
-    sessionStorage.removeItem('deleteSuccessMessage');
+    sessionStorage.removeItem('successMessage');
 }
 
 
 // Close by × button
 successModalClose.addEventListener('click', () => {
+
     successModal.classList.remove('show');
+
 });
 
 
@@ -38,7 +42,9 @@ successModalClose.addEventListener('click', () => {
 successModal.addEventListener('click', (event) => {
 
     if (event.target === successModal) {
+
         successModal.classList.remove('show');
+
     }
 
 });

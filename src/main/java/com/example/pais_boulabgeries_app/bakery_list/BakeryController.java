@@ -52,21 +52,26 @@ public class BakeryController {
         BakeryDto newBakery = bakeryService.createBakery(bakery);
 
         httpResponseDto.setHttpStatus(HttpStatus.CREATED);
+        httpResponseDto.setMessage("La boulangerie a été enregistrée");
+
         httpResponseDto.setResponseData(newBakery);
 
         return httpResponseDto;
     }
 
+    // edit bakery data
+    @PutMapping(path = "/api/bakery/{id}/edit")
+    public HttpResponseDto updateBakery(@PathVariable("id") Long id, @ModelAttribute BakeryDto bakery) {
+        HttpResponseDto httpResponseDto = new HttpResponseDto();
 
-//    @PutMapping(path = "/api/bakery/{id}")
-//    public HttpResponseDto updateBakery(@PathVariable("id") Long id, @RequestBody Bakery bakery) {
-//        HttpResponseDto httpResponseDto = new HttpResponseDto();
-//        bakery.setId(id);
-//        Bakery updatedBakery = bakeryService.updateBakery(bakery);
-//        httpResponseDto.setHttpStatus(HttpStatus.CREATED);
-//        httpResponseDto.setResponseData(updatedBakery);
-//        return httpResponseDto;
-//    }
+        BakeryDto updatedBakery = bakeryService.updateBakery(id, bakery);
+
+        httpResponseDto.setHttpStatus(HttpStatus.OK);
+        httpResponseDto.setMessage("La boulangerie a été modifiée");
+        httpResponseDto.setResponseData(updatedBakery);
+
+        return httpResponseDto;
+    }
 
     @DeleteMapping(path = "/api/bakery/{id}")
     public HttpResponseDto deleteBakery(@PathVariable("id") Long id) {

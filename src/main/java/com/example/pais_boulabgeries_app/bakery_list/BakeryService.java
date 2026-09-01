@@ -162,4 +162,58 @@ public class BakeryService {
         bakeryRepository.delete(entity);
     }
 
+    // Update
+    public BakeryDto updateBakery(Long id, BakeryDto bakery) {
+
+        // Find existing bakery
+        BakeryEntity entity = bakeryRepository.findById(id)
+                .orElseThrow(() ->
+                        new RuntimeException("Boulangerie introuvable: " + id));
+
+        // Update basic information
+        entity.setBakeryName(bakery.getBakeryName());
+        entity.setArrondissement(bakery.getArrondissement());
+        entity.setAddress(emptyToNull(bakery.getAddress()));
+        entity.setRating(bakery.getRating());
+        entity.setNotes(emptyToNull(bakery.getNotes()));
+        entity.setVisited_date(bakery.getVisitedDate());
+        entity.setFavorite(bakery.getFavorite());
+        entity.setMapsUrl(emptyToNull(bakery.getMapsUrl()));
+
+        // If a new photo is uploaded
+        if (bakery.getPhoto() != null && !bakery.getPhoto().isEmpty()) {
+
+            // Delete old photo
+            if (entity.getPhotoUrl() != null) {
+
+                try {
+
+                    Path oldPhotoPath = Paths.get("uploads")
+                            .resolve(entity.getPhotoUrl());
+
+                    Files.deleteIfExists(oldPhotoPath);
+
+                } catch (IOException e) {
+
+                    throw new RuntimeException(
+                            "Échec de la suppression de l'ancienne photo", e);
+                }
+            }
+
+            // Save new photo
+            String photoUrl = savePhoto(bakery.getPhoto());
+
+            entity.setPhotoUrl(photoUrl);
+        }
+
+        // Save updated entity
+        BakeryEntity updatedEntity = bakeryRepository.save(entity);
+
+        // Convert Entity to DTO
+        BakeryDto updatedBakery = new BakeryDto();
+        copyEntityToBean(updatedEntity, updatedBakery);
+
+        return updatedBakery;
+    }
+
 }

@@ -13,6 +13,12 @@
 
 <header>
     <h1>Paris Boulangeries App</h1>
+
+    <a class="add-bakery-button"
+       th:href="@{/bakery/registration}">
+        <span class="add-bakery-plus">+</span>
+        <span>Ajouter une boulangerie</span>
+    </a>
 </header>
 
 <main>
@@ -39,12 +45,12 @@
                 <span class="favorite-heart">
 
                     <img th:if="${bakery.favorite == true}"
-                        th:src="@{/images/pink_heart.svg}"
-                        alt="Favorite">
+                         th:src="@{/images/pink_heart.svg}"
+                         alt="Favorite">
 
                     <img th:if="${bakery.favorite != true}"
-                        th:src="@{/images/white_heart.svg}"
-                        alt="Not favorite">
+                         th:src="@{/images/white_heart.svg}"
+                         alt="Not favorite">
 
                 </span>
             </div>
@@ -62,10 +68,10 @@
                 <!-- arrondissement -->
                 <div>
                     <img src="/images/pin_icon.svg"
-                     alt="Arrondissement">
+                         alt="Arrondissement">
 
                     <span class="arrondissement"
-                       th:text="${bakery.arrondissement == 1
+                          th:text="${bakery.arrondissement == 1
                     ? '1er arrondissement'
                     : bakery.arrondissement + 'e arrondissement'}">
                         2e arrondissement
@@ -113,16 +119,12 @@
                           th:text="${#temporals.format(bakery.visitedDate, 'dd/MM/yyyy')}">28/08/2026
                     </span>
                 </p>
-
-
             </div>
-
         </a>
-
     </div>
-
 </main>
-<!-- Delete success modal -->
+
+<!-- Opération success modal -->
 <div class="success-modal-overlay" id="successModal">
 
     <div class="success-modal">
@@ -138,7 +140,7 @@
             ✓
         </div>
 
-        <h2>Suppression réussie</h2>
+        <h2>Opération réussie</h2>
 
         <p id="successModalMessage">
             La boulangerie a été supprimée.
@@ -147,6 +149,6 @@
     </div>
 
 </div>
-<script th:src="@{/js/index.js}"></script>
+<script th:src="@{/js/success-modal.js}"></script>
 </body>
 </html>

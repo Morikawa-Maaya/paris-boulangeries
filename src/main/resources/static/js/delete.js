@@ -47,11 +47,11 @@ confirmDeleteButton.addEventListener('click', async () => {
 
         // Save success message temporarily
         sessionStorage.setItem(
-            'deleteSuccessMessage',
+            'successMessage',
             data.message || 'La boulangerie a été supprimée.'
         );
 
-        // Home
+        // Go to Home
         window.location.href = '/';
 
     } catch (error) {
@@ -60,4 +60,5 @@ confirmDeleteButton.addEventListener('click', async () => {
 
         alert('La suppression a échoué.');
     }
+
 });

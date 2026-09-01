@@ -169,14 +169,25 @@
 
     </div>
 
-    <!-- Delete button -->
-    <div class="delete-area">
+    <!-- Action buttons -->
+    <div class="action-area">
 
+        <!-- Modify button -->
+        <a th:href="@{/bakery/{id}/edit(id=${bakery.id})}"
+           class="modify-button"
+           aria-label="Modifier cette boulangerie">
+
+            <img th:src="@{/images/modify_icon.svg}"
+                 alt="Modifier">
+
+        </a>
+
+        <!-- Delete button -->
         <button type="button"
                 id="deleteButton"
                 class="delete-button"
-                aria-label="Supprimer cette boulangerie"
-                th:data-bakery-id="${bakery.id}">
+                th:data-bakery-id="${bakery.id}"
+                aria-label="Supprimer cette boulangerie">
 
             <img th:src="@{/images/delete_icon.svg}"
                  alt="Supprimer">
@@ -210,7 +221,8 @@
 
                 <button type="button"
                         class="confirm-delete-button"
-                        id="confirmDeleteButton">
+                        id="confirmDeleteButton"
+                        aria-label="Supprimer cette boulangerie">
                     Supprimer
                 </button>
 
@@ -231,6 +243,32 @@
     </div>
 
 </main>
+<!-- Opération success modal -->
+<div class="success-modal-overlay" id="successModal">
+
+    <div class="success-modal">
+
+        <button type="button"
+                class="success-modal-close"
+                id="successModalClose"
+                aria-label="Fermer">
+            ×
+        </button>
+
+        <div class="success-modal-icon">
+            ✓
+        </div>
+
+        <h2>Opération réussie</h2>
+
+        <p id="successModalMessage">
+            La boulangerie a été supprimée.
+        </p>
+
+    </div>
+
+</div>
 <script th:src="@{/js/delete.js}"></script>
+<script th:src="@{/js/success-modal.js}"></script>
 </body>
 </html>

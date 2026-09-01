@@ -31,13 +31,22 @@ public class BakeryPageController {
         return "index";
     }
 
-    @GetMapping("/registration")
+    // get information of user tipped text
+    @GetMapping("/bakery/registration")
     public String showRegistration(Model model) {
 
         model.addAttribute("bakeryDto", new BakeryDto());
 
         return "registration";
     }
+
+    // keep information of user tipped text when user returned to modify page
+    @PostMapping("/bakery/registration")
+    public String registrationFromConfirmation(
+            @ModelAttribute("bakeryDto") BakeryDto bakeryDto) {
+
+        return "registration";
+}
 
     // show detail information of one bakery
     @GetMapping("/bakery/{id}")
@@ -67,5 +76,16 @@ public class BakeryPageController {
         return "confirmation";
     }
 
+    // show edit page
+    @GetMapping("/bakery/{id}/edit")
+    public String showEdit(
+            @PathVariable Long id,
+            Model model) {
 
+        BakeryDto bakery = bakeryService.getBakeryById(id);
+
+        model.addAttribute("bakery", bakery);
+
+        return "edit";
+    }
 }

@@ -1,132 +1,264 @@
 <!DOCTYPE html>
 <html lang="fr" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
+
     <title>Confirmation</title>
 
-    <link rel="stylesheet" th:href="@{/css/style.css}">
-
+    <link rel="stylesheet" th:href="@{/css/registration.css}">
 </head>
+
 <body>
 
-<h1>Confirmation</h1>
+<header>
+    <h1>Paris Boulangeries App</h1>
 
-<p>Veuillez vérifier les informations avant l'enregistrement.</p>
+    <a class="back-button"
+       th:href="@{/}">
+        ← Retour à l'accueil
+    </a>
+</header>
 
-<div>
-    <label>Nom</label>
-    <input type="text"
-           class="confirmation-value"
-           th:value="${bakeryDto.bakeryName}"
-           disabled>
-</div>
+<main>
 
-<div>
-    <label>Arrondissement</label>
-    <input type="text"
-           class="confirmation-value"
-           th:value="${bakeryDto.arrondissement}"
-           disabled>
-</div>
+    <div class="registration-card">
 
-<div>
-    <label>Adresse</label>
-    <input type="text"
-           class="confirmation-value"
-           th:value="${bakeryDto.address}"
-           disabled>
-</div>
+        <h2>Confirmation</h2>
 
-<div>
-    <label>Évaluation</label>
-    <input type="text"
-           class="confirmation-value"
-           th:value="${bakeryDto.rating}"
-           disabled>
-</div>
+        <p class="registration-description">
+            Veuillez vérifier les informations avant l'enregistrement.
+        </p>
 
-<div>
-    <label>Notes</label>
-    <input type="text"
-           class="confirmation-value"
-           th:value="${bakeryDto.notes}"
-           disabled>
-</div>
-<div>
-    <label>Favori</label>
-    <input type="text"
-           class="confirmation-value"
-           th:value="${bakeryDto.favorite ? 'Oui' : 'Non'}"
-           disabled>
-</div>
+        <div class="confirmation-content">
 
-<div>
-    <label>Date de visite</label>
-    <input type="text"
-           class="confirmation-value"
-           th:value="${bakeryDto.visitedDate}"
-           disabled>
-</div>
+            <!-- Nom -->
+            <div class="confirmation-group">
 
-<div>
-    <label>Google Maps</label>
-    <input type="text"
-           class="confirmation-value"
-           th:value="${bakeryDto.mapsUrl}"
-           disabled>
-</div>
+                <label>Nom de la boulangerie</label>
 
-<div class="submit-area">
+                <div class="confirmation-value"
+                     th:text="${bakeryDto.bakeryName}">
+                    Nom de la boulangerie
+                </div>
 
-    <!-- register -->
-    <form th:action="@{/api/bakery}"
-          method="post">
+            </div>
 
-        <input type="hidden"
-               name="bakeryName"
-               th:value="${bakeryDto.bakeryName}">
 
-        <input type="hidden"
-               name="arrondissement"
-               th:value="${bakeryDto.arrondissement}">
+            <!-- Arrondissement -->
+            <div class="confirmation-group">
 
-        <input type="hidden"
-               name="address"
-               th:value="${bakeryDto.address}">
+                <label>Arrondissement</label>
 
-        <input type="hidden"
-               name="rating"
-               th:value="${bakeryDto.rating}">
+                <div class="confirmation-value"
+                     th:text="${bakeryDto.arrondissement == 1
+                    ? '1er arrondissement'
+                    : bakeryDto.arrondissement + 'e arrondissement'}">
+                    2e arrondissement
+                </div>
 
-        <input type="hidden"
-               name="notes"
-               th:value="${bakeryDto.notes}">
+            </div>
 
-        <input type="hidden"
-               name="favorite"
-               th:value="${bakeryDto.favorite}">
 
-        <input type="hidden"
-               name="visitedDate"
-               th:value="${bakeryDto.visitedDate}">
+            <!-- Adresse -->
+            <div class="confirmation-group">
 
-        <input type="hidden"
-               name="mapsUrl"
-               th:value="${bakeryDto.mapsUrl}">
+                <label>Adresse</label>
 
-        <button type="submit" class="register-button">
-            Enregistrer
-        </button>
+                <div class="confirmation-value"
+                     th:text="${bakeryDto.address}">
+                    Adresse
+                </div>
 
-    </form>
+            </div>
 
-    <!-- return to input page -->
-    <form th:action="@{/registration}" method="get">
-        <button type="submit" class="submit-button modify-button">
-            Modifier
-        </button>
-    </form>
 
-</div>
+            <!-- Évaluation -->
+            <div class="confirmation-group">
+
+                <label>Évaluation</label>
+
+                <div class="confirmation-value"
+                     th:text="${bakeryDto.rating}">
+                    4.5
+                </div>
+
+            </div>
+
+
+            <!-- Notes -->
+            <div class="confirmation-group">
+
+                <label>Notes</label>
+
+                <div class="confirmation-value confirmation-notes"
+                     th:text="${bakeryDto.notes}">
+                    Notes
+                </div>
+
+            </div>
+
+
+            <!-- Favori -->
+            <div class="confirmation-group">
+
+                <label>Favori</label>
+
+                <div class="confirmation-value"
+                     th:text="${bakeryDto.favorite ? 'Oui' : 'Non'}">
+                    Oui
+                </div>
+
+            </div>
+
+
+            <!-- Date de visite -->
+            <div class="confirmation-group">
+
+                <label>Date de visite</label>
+
+                <div class="confirmation-value"
+                     th:text="${#temporals.format(bakeryDto.visitedDate, 'dd/MM/yyyy')}">
+                    28/08/2026
+                </div>
+
+            </div>
+
+            <!-- photo  -->
+            <div class="confirmation-group">
+                <label>Photo</label>
+
+                <div class="confirmation-value">
+                    <span th:if="${bakeryDto.photo != null
+                        and !bakeryDto.photo.isEmpty()}"
+                          th:text="${bakeryDto.photo.originalFilename}">
+                            photo.jpg
+                    </span>
+
+                    <span th:if="${bakeryDto.photo == null
+                      or bakeryDto.photo.isEmpty()}">
+                        Non renseignée
+                    </span>
+                </div>
+            </div>
+
+            <!-- Google Maps -->
+            <div class="confirmation-group">
+
+                <label>Google Maps</label>
+
+                <div class="confirmation-value">
+                    <a th:if="${bakeryDto.mapsUrl != null and !bakeryDto.mapsUrl.isEmpty()}"
+                       th:href="${bakeryDto.mapsUrl}"
+                       th:text="${bakeryDto.mapsUrl}"
+                       target="_blank">
+                        Google Maps
+                    </a>
+
+                    <span th:if="${bakeryDto.mapsUrl == null or bakeryDto.mapsUrl.isEmpty()}">
+                    Non renseigné
+                </span>
+                </div>
+
+            </div>
+        </div>
+
+
+        <!-- Buttons -->
+        <div class="confirmation-actions">
+
+            <!-- Register -->
+            <form id="registerForm"
+                  th:action="@{/api/bakery}"
+                  method="post">
+
+                <input type="hidden"
+                       name="bakeryName"
+                       th:value="${bakeryDto.bakeryName}">
+
+                <input type="hidden"
+                       name="arrondissement"
+                       th:value="${bakeryDto.arrondissement}">
+
+                <input type="hidden"
+                       name="address"
+                       th:value="${bakeryDto.address}">
+
+                <input type="hidden"
+                       name="rating"
+                       th:value="${bakeryDto.rating}">
+
+                <input type="hidden"
+                       name="notes"
+                       th:value="${bakeryDto.notes}">
+
+                <input type="hidden"
+                       name="favorite"
+                       th:value="${bakeryDto.favorite}">
+
+                <input type="hidden"
+                       name="visitedDate"
+                       th:value="${bakeryDto.visitedDate}">
+
+                <input type="hidden"
+                       name="mapsUrl"
+                       th:value="${bakeryDto.mapsUrl}">
+
+                <button type="submit"
+                        class="register-button">
+                    Enregistrer
+                </button>
+
+            </form>
+
+
+            <!-- Modify -->
+            <form th:action="@{/bakery/registration}" method="post">
+
+                <input type="hidden"
+                       name="bakeryName"
+                       th:value="${bakeryDto.bakeryName}">
+
+                <input type="hidden"
+                       name="arrondissement"
+                       th:value="${bakeryDto.arrondissement}">
+
+                <input type="hidden"
+                       name="address"
+                       th:value="${bakeryDto.address}">
+
+                <input type="hidden"
+                       name="rating"
+                       th:value="${bakeryDto.rating}">
+
+                <input type="hidden"
+                       name="notes"
+                       th:value="${bakeryDto.notes}">
+
+                <input type="hidden"
+                       name="favorite"
+                       th:value="${bakeryDto.favorite}">
+
+                <input type="hidden"
+                       name="visitedDate"
+                       th:value="${#temporals.format(bakeryDto.visitedDate, 'yyyy-MM-dd')}">
+
+                <input type="hidden"
+                       name="mapsUrl"
+                       th:value="${bakeryDto.mapsUrl}">
+
+                <button type="submit"
+                        class="modify-button">
+                    Modifier
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</main>
+<script th:src="@{/js/confirmation.js}"></script>
 </body>
 </html>

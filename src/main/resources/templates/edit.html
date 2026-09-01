@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
 
-    <title>Enregistrement d'une boulangerie</title>
+    <title>Modifier une boulangerie</title>
 
     <link rel="stylesheet" th:href="@{/css/registration.css}">
 </head>
@@ -15,7 +15,7 @@
     <h1>Paris Boulangeries App</h1>
 
     <a class="back-button"
-       th:href="@{/}">
+       th:href="@{/bakery/{id}(id=${bakery.id})}">
         ← Retour
     </a>
 </header>
@@ -24,20 +24,22 @@
 
     <div class="registration-card">
 
-        <h2>Ajouter une boulangerie</h2>
+        <h2>Modifier une boulangerie</h2>
 
         <p class="registration-description">
-            Enregistrez les informations de la boulangerie que vous avez visitée.
+            Modifiez les informations de la boulangerie.
         </p>
 
-        <p class="required-note">
-            <span>*</span> Champs obligatoires
-        </p>
-
-        <form th:object="${bakeryDto}"
-              th:action="@{/bakery/confirm}"
+        <form id="editForm"
+              th:object="${bakery}"
+              th:action="@{/api/bakery/{id}/edit(id=${bakery.id})}"
+              th:data-bakery-id="${bakery.id}"
               method="post"
               enctype="multipart/form-data">
+
+            <input type="hidden"
+                   name="_method"
+                   value="PUT">
 
             <!-- Nom -->
             <div class="form-group">
@@ -50,12 +52,8 @@
                        th:field="*{bakeryName}"
                        placeholder="Ex. Du Pain et des Idées"
                        required>
-
-                <span class="error-message"
-                      th:if="${#fields.hasErrors('bakeryName')}"
-                      th:errors="*{bakeryName}">
-                </span>
             </div>
+
 
             <!-- Arrondissement -->
             <div class="form-group">
@@ -71,26 +69,27 @@
 
                     <option th:each="i : ${#numbers.sequence(1, 20)}"
                             th:value="${i}"
-                            th:text="${i == 1 ? '1er arrondissement' : i + 'e arrondissement'}">
+                            th:text="${i == 1
+                            ? '1er arrondissement'
+                            : i + 'e arrondissement'}">
                     </option>
 
                 </select>
-
-                <span class="error-message"
-                      th:if="${#fields.hasErrors('arrondissement')}"
-                      th:errors="*{arrondissement}">
-                </span>
             </div>
+
 
             <!-- Adresse -->
             <div class="form-group">
-                <label for="address">Adresse</label>
+                <label for="address">
+                    Adresse
+                </label>
 
                 <input type="text"
                        id="address"
                        th:field="*{address}"
                        placeholder="Ex. 34 Rue du Faubourg Saint-Martin">
             </div>
+
 
             <!-- Rating -->
             <div class="form-group">
@@ -114,21 +113,20 @@
                     <option value="5.0">5.0</option>
 
                 </select>
-
-                <span class="error-message"
-                      th:if="${#fields.hasErrors('rating')}"
-                      th:errors="*{rating}">
-                </span>
             </div>
+
 
             <!-- Notes -->
             <div class="form-group">
-                <label for="notes">Notes</label>
+                <label for="notes">
+                    Notes
+                </label>
 
                 <textarea id="notes"
                           th:field="*{notes}"
                           placeholder="Ajoutez vos impressions..."></textarea>
             </div>
+
 
             <!-- Favorite -->
             <div class="favorite-group">
@@ -143,6 +141,7 @@
 
             </div>
 
+
             <!-- Visited date -->
             <div class="form-group">
                 <label for="visitedDate">
@@ -152,13 +151,42 @@
                 <input type="date"
                        id="visitedDate"
                        name="visitedDate"
-                       th:value="${#temporals.format(bakeryDto.visitedDate, 'yyyy-MM-dd')}"
+                       th:value="${#temporals.format(
+                       bakery.visitedDate,
+                       'yyyy-MM-dd'
+                   )}"
                        required>
             </div>
 
-            <!-- Photo -->
+
+            <!-- Current photo -->
             <div class="form-group">
-                <label>Photo</label>
+
+                <label>
+                    Photo actuelle
+                </label>
+
+                <div class="current-photo">
+
+                    <img th:if="${bakery.photoUrl != null}"
+                         th:src="@{/uploads/{filename}(filename=${bakery.photoUrl})}"
+                         alt="Photo actuelle">
+
+                    <span th:if="${bakery.photoUrl == null}">
+                    Aucune photo
+                </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- New photo -->
+            <div class="form-group">
+
+                <label>
+                    Modifier la photo
+                </label>
 
                 <div class="photo-upload">
 
@@ -178,15 +206,19 @@
                     </label>
 
                     <span id="file-name">
-                        Aucune photo sélectionnée
-                    </span>
+                    Aucune nouvelle photo sélectionnée
+                </span>
 
                 </div>
+
             </div>
+
 
             <!-- Google Maps -->
             <div class="form-group">
-                <label for="mapsUrl">Lien Google Maps</label>
+                <label for="mapsUrl">
+                    Lien Google Maps
+                </label>
 
                 <input type="url"
                        id="mapsUrl"
@@ -194,13 +226,14 @@
                        placeholder="https://maps.google.com/...">
             </div>
 
+
             <!-- Submit -->
             <div class="submit-area">
 
                 <button type="submit"
                         class="submit-button">
 
-                    Vérifier
+                    Modifier
 
                 </button>
 
@@ -211,8 +244,7 @@
     </div>
 
 </main>
-
-<script th:src="@{/js/register.js}"></script>
+<script th:src="@{/js/edit.js}"></script>
 
 </body>
 </html>
