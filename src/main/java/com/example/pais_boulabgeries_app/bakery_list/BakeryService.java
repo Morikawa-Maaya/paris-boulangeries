@@ -139,16 +139,4 @@ public class BakeryService {
         }
     }
 
-
-//    private void copyBeanToEntityForInsert(Bakery bakery, BakeryEntity entity) {
-//        entity.setBakeryName("nameSample");
-//        entity.setArrondissement(1);
-//        entity.setAddress("1-1-1");
-//        entity.setRating(new BigDecimal("4.5"));
-//        entity.setNotes("trebien");
-//        entity.setVisited_date(LocalDate.of(2020, 9, 8));
-//        entity.setFavorite(Boolean.TRUE);
-//        entity.setPhoto_url("....jpg");
-//        entity.setMaps_url("....google.maps");
-//    }
 }

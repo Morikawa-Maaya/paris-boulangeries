@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+
+    <title>Paris Boulangeries App</title>
+
+    <link rel="stylesheet" th:href="@{/css/home.css}">
+</head>
+
+<body>
+
+<header>
+    <h1>Paris Boulangeries App</h1>
+</header>
+
+<main>
+
+    <div class="bakery-list">
+
+        <!-- Show all data of DB list -->
+        <a class="bakery-card"
+           th:each="bakery : ${bakeries}"
+           th:href="@{/bakery/{id}(id=${bakery.id})}">
+
+            <!-- photo -->
+            <div class="bakery-image">
+
+                <img th:if="${bakery.photoUrl != null}"
+                     th:src="@{/uploads/{filename}(filename=${bakery.photoUrl})}"
+                     alt="Boulangerie">
+
+                <span th:if="${bakery.photoUrl == null}">
+                    Pas de photo
+                </span>
+
+                <!-- favorite heart -->
+                <span class="favorite-heart">
+
+                    <img th:if="${bakery.favorite == true}"
+                        th:src="@{/images/pink_heart.svg}"
+                        alt="Favorite">
+
+                    <img th:if="${bakery.favorite != true}"
+                        th:src="@{/images/white_heart.svg}"
+                        alt="Not favorite">
+
+                </span>
+            </div>
+
+
+            <!-- bakery information -->
+            <div class="bakery-info">
+
+                <!-- bakery name -->
+                <p class="bakery-name"
+                   th:text="${bakery.bakeryName}">
+                    Nom de boulangerie
+                </p>
+
+                <!-- arrondissement -->
+                <div>
+                    <img src="/images/pin_icon.svg"
+                     alt="Arrondissement">
+
+                    <span class="arrondissement"
+                       th:text="${bakery.arrondissement == 1
+                    ? '1er arrondissement'
+                    : bakery.arrondissement + 'e arrondissement'}">
+                        2e arrondissement
+                    </span>
+                </div>
+
+                <!-- rating -->
+                <div class="rating">
+
+                    <span class="rating-number"
+                          th:text="${bakery.rating}">
+                    </span>
+
+                    <div class="rating-dots">
+
+                         <span class="rating-dot"
+                               th:classappend="${bakery.rating >= 1.0 ? ' full' : ' empty'}">
+                         </span>
+
+                        <span class="rating-dot"
+                              th:classappend="${bakery.rating >= 2.0 ? ' full' : (bakery.rating == 1.5 ? ' half' : ' empty')}">
+                        </span>
+
+                        <span class="rating-dot"
+                              th:classappend="${bakery.rating >= 3.0 ? ' full' : (bakery.rating == 2.5 ? ' half' : ' empty')}">
+                        </span>
+
+                        <span class="rating-dot"
+                              th:classappend="${bakery.rating >= 4.0 ? ' full' : (bakery.rating == 3.5 ? ' half' : ' empty')}">
+                        </span>
+
+                        <span class="rating-dot"
+                              th:classappend="${bakery.rating >= 5.0 ? ' full' : (bakery.rating == 4.5 ? ' half' : ' empty')}">
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- visit date -->
+                <p class="visit-date">
+                    <span class="visit-label">Date de visite :</span>
+                    <span class="visit-value"
+                          th:text="${#temporals.format(bakery.visitedDate, 'dd/MM/yyyy')}">28/08/2026
+                    </span>
+                </p>
+
+
+            </div>
+
+        </a>
+
+    </div>
+
+</main>
+
+</body>
+</html>
