@@ -250,3 +250,109 @@ main {
 
     border-radius: 50% 0 0 50%;
 }
+
+/* =========================
+   Delete success modal
+   ========================= */
+
+.success-modal-overlay {
+    position: fixed;
+    inset: 0;
+
+    display: none;
+
+    justify-content: center;
+    align-items: center;
+
+    background: rgba(0, 0, 0, 0.45);
+
+    z-index: 1000;
+}
+
+.success-modal-overlay.show {
+    display: flex;
+}
+
+.success-modal {
+    position: relative;
+
+    width: 400px;
+    max-width: 90%;
+
+    padding: 40px 30px;
+
+    background: #ffffff;
+
+    border-radius: 16px;
+
+    text-align: center;
+
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+
+/* Close button */
+
+.success-modal-close {
+    position: absolute;
+
+    top: 10px;
+    right: 15px;
+
+    width: 35px;
+    height: 35px;
+
+    border: none;
+
+    background: transparent;
+
+    font-size: 28px;
+
+    color: #777;
+
+    cursor: pointer;
+}
+
+.success-modal-close:hover {
+    color: #333;
+}
+
+
+/* Success icon */
+
+.success-modal-icon {
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    width: 60px;
+    height: 60px;
+
+    margin: 0 auto 20px;
+
+    border-radius: 50%;
+
+    background: #f8b4c8;
+
+    color: white;
+
+    font-size: 32px;
+    font-weight: bold;
+}
+
+
+.success-modal h2 {
+    margin-bottom: 15px;
+
+    color: #333;
+}
+
+
+.success-modal p {
+    margin: 0;
+
+    color: #666;
+
+    font-size: 16px;
+}

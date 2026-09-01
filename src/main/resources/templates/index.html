@@ -122,6 +122,31 @@
     </div>
 
 </main>
+<!-- Delete success modal -->
+<div class="success-modal-overlay" id="successModal">
 
+    <div class="success-modal">
+
+        <button type="button"
+                class="success-modal-close"
+                id="successModalClose"
+                aria-label="Fermer">
+            ×
+        </button>
+
+        <div class="success-modal-icon">
+            ✓
+        </div>
+
+        <h2>Suppression réussie</h2>
+
+        <p id="successModalMessage">
+            La boulangerie a été supprimée.
+        </p>
+
+    </div>
+
+</div>
+<script th:src="@{/js/index.js}"></script>
 </body>
 </html>

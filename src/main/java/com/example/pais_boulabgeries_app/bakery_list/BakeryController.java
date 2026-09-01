@@ -13,6 +13,7 @@ public class BakeryController {
     @Autowired
     private BakeryService bakeryService;
 
+    // show bakery detail, upload, delete one bakery
     @GetMapping(path = "/api/bakery/{id}")
     public HttpResponseDto getBakeryById(@PathVariable("id") Long id) {
         HttpResponseDto httpResponseDto = new HttpResponseDto();
@@ -31,15 +32,7 @@ public class BakeryController {
         return httpResponseDto;
     }
 
-//    @PostMapping(path = "/api/bakery")
-//    public HttpResponseDto createBakery(@ModelAttribute  BakeryDto bakery) {
-//        HttpResponseDto httpResponseDto = new HttpResponseDto();
-//        BakeryDto newBakery = bakeryService.createBakery(bakery);
-//        httpResponseDto.setHttpStatus(HttpStatus.CREATED);
-//        httpResponseDto.setResponseData(newBakery);
-//        return httpResponseDto;
-//    }
-
+    // send new bakery data
     @PostMapping(path = "/api/bakery")
     public HttpResponseDto createBakery(@ModelAttribute BakeryDto bakery) {
 
@@ -75,15 +68,15 @@ public class BakeryController {
 //        return httpResponseDto;
 //    }
 
-//    @DeleteMapping(path = "/api/bakery/{id}")
-//    public HttpResponseDto deleteBakery(@PathVariable("id") Long id) {
-//        HttpResponseDto httpResponseDto = new HttpResponseDto();
-//        if (bakeryService.deleteEmployeeById(employeeId)) {
-//            httpResponseDto.setHttpStatus(HttpStatus.OK);
-//            httpResponseDto.setMessage("delete success.");
-//        } else {
-//            // do something
-//        }
-//        return httpResponseDto;
-//    }
+    @DeleteMapping(path = "/api/bakery/{id}")
+    public HttpResponseDto deleteBakery(@PathVariable("id") Long id) {
+
+        bakeryService.deleteBakery(id);
+
+        HttpResponseDto httpResponseDto = new HttpResponseDto();
+        httpResponseDto.setHttpStatus(HttpStatus.OK);
+        httpResponseDto.setMessage("La boulangerie a été supprimée");
+
+        return httpResponseDto;
+    }
 }

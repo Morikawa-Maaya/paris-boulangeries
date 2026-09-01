@@ -24,7 +24,9 @@ public class BakeryService {
     private BakeryRepository bakeryRepository;
 
     public BakeryDto getBakeryById(Long id) {
-        BakeryEntity entity = bakeryRepository.findById(id).get();
+        BakeryEntity entity = bakeryRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Boulangerie introuvable: " + id));
+
         BakeryDto bakery = new BakeryDto();
         copyEntityToBean(entity, bakery);
         return bakery;
@@ -137,6 +139,27 @@ public class BakeryService {
         } catch (IOException e) {
             throw new RuntimeException("Échec de l'enregistrement de la photo", e);
         }
+    }
+
+    // delete
+    public void deleteBakery(Long id) {
+        BakeryEntity entity = bakeryRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Bakery not found: " + id));
+
+        // if this data contains photo
+        if (entity.getPhotoUrl() != null) {
+            try {
+                Path photoPath = Paths.get("uploads")
+                        .resolve(entity.getPhotoUrl());
+
+                Files.deleteIfExists(photoPath);
+
+            } catch (IOException e) {
+                throw new RuntimeException("Échec de la suppression de la photo", e);
+            }
+        }
+
+        bakeryRepository.delete(entity);
     }
 
 }

@@ -169,6 +169,56 @@
 
     </div>
 
+    <!-- Delete button -->
+    <div class="delete-area">
+
+        <button type="button"
+                id="deleteButton"
+                class="delete-button"
+                aria-label="Supprimer cette boulangerie"
+                th:data-bakery-id="${bakery.id}">
+
+            <img th:src="@{/images/delete_icon.svg}"
+                 alt="Supprimer">
+
+        </button>
+
+    </div>
+
+    <!-- Delete confirmation modal -->
+    <div class="modal-overlay" id="deleteModal">
+
+        <div class="delete-modal">
+
+            <h2>Supprimer cette boulangerie ?</h2>
+
+            <p>
+                Voulez-vous supprimer cet enregistrement de boulangerie ?
+            </p>
+
+            <p class="warning-text">
+                Cette action est irréversible.
+            </p>
+
+            <div class="modal-buttons">
+
+                <button type="button"
+                        class="cancel-button"
+                        id="cancelDeleteButton">
+                    Annuler
+                </button>
+
+                <button type="button"
+                        class="confirm-delete-button"
+                        id="confirmDeleteButton">
+                    Supprimer
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
 
     <!-- Back button -->
     <div class="back-area">
@@ -181,6 +231,6 @@
     </div>
 
 </main>
-
+<script th:src="@{/js/delete.js}"></script>
 </body>
 </html>
